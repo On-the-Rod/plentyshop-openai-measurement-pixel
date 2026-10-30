@@ -1,13 +1,13 @@
 <?php
 
-namespace OpenAiMeasurementPixel\\Providers;
+namespace OpenAiMeasurementPixel\Providers;
 
-use Plenty\\Modules\\Webshop\\Consent\\Contracts\\ConsentRepositoryContract;
-use Plenty\\Plugin\\ServiceProvider;
+use Plenty\Modules\Webshop\Consent\Contracts\ConsentRepositoryContract;
+use Plenty\Plugin\ServiceProvider;
 
 /**
- * Registers the OpenAI Measurement Pixel in the native plentyShop consent
- * repository. This first-stage plugin deliberately does not load the pixel.
+ * Stage 1: register the OpenAI Measurement Pixel as an optional marketing
+ * consent. This class intentionally does not load or initialize the SDK.
  */
 class OpenAiMeasurementPixelServiceProvider extends ServiceProvider
 {
@@ -19,16 +19,18 @@ class OpenAiMeasurementPixelServiceProvider extends ServiceProvider
         $consentRepository->registerConsent(
             'openaiMeasurementPixel',
             'OpenAI Measurement Pixel',
-            [
-                'description' => 'Measures the effectiveness of OpenAI advertising.',
-                'provider' => 'OpenAI',
-                'lifespan' => 'According to the provider information',
-                'policyUrl' => 'https://openai.com/policies/privacy-policy/',
-                'group' => 'marketing',
-                'necessary' => false,
-                'isOptOut' => false,
-                'cookieNames' => ['__oppref', '__obref']
-            ]
+            function () {
+                return [
+                    'description' => 'Measures conversions attributable to OpenAI advertisements.',
+                    'provider' => 'OpenAI',
+                    'lifespan' => 'See OpenAI privacy information.',
+                    'policyUrl' => 'https://openai.com/policies/privacy-policy/',
+                    'group' => 'marketing',
+                    'necessary' => false,
+                    'isOptOut' => false,
+                    'cookieNames' => ['__oppref', '__obref']
+                ];
+            }
         );
     }
 }
