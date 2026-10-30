@@ -1,0 +1,17 @@
+{
+  "name": "OpenAiMeasurementPixel",
+  "namespace": "OpenAiMeasurementPixel",
+  "type": "template",
+  "version": "0.1.0",
+  "description": "Registers the OpenAI Measurement Pixel as a marketing consent in plentyShop LTS.",
+  "author": "On-the-Rod",
+  "license": "MIT",
+  "require": {
+    "Ceres": "~5.0.48"
+  },
+  "platform": {
+    "php": ">=7.3 <8.1"
+  },
+  "isClosedSource": false,
+  "serviceProvider": "OpenAiMeasurementPixel\\Providers\\OpenAiMeasurementPixelServiceProvider"
+}
