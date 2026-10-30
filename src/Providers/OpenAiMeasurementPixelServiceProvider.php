@@ -7,7 +7,7 @@ use Plenty\Plugin\ServiceProvider;
 
 /**
  * Stage 1: register the OpenAI Measurement Pixel as an optional marketing
- * consent. This class intentionally does not load or initialize the SDK.
+ * consent. This provider does not load or initialize the SDK.
  */
 class OpenAiMeasurementPixelServiceProvider extends ServiceProvider
 {
