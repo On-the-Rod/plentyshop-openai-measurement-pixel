@@ -4,6 +4,7 @@
   "type": "template",
   "version": "0.1.0",
   "description": "Registers the OpenAI Measurement Pixel as a marketing consent in plentyShop LTS.",
+  "shortDescription": "OpenAI Measurement Pixel consent integration",
   "author": "On-the-Rod",
   "license": "MIT",
   "require": {
