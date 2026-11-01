@@ -4,34 +4,24 @@ Early development scaffold for plentyShop LTS / Ceres 5.0.48.
 
 ## Current status
 
-**Stage 1: consent registration only.** The plugin registers **OpenAI Measurement Pixel**
-as an optional consent in the existing \`marketing\` group through
-\`ConsentRepositoryContract::registerConsent()\`.
+**Stage 1: consent registration implemented and verified in the target shop.** The plugin registers **OpenAI Measurement Pixel** as an optional consent in the existing `marketing` group through `ConsentRepositoryContract::registerConsent()`.
 
-It intentionally does **not** load the OpenAI SDK, initialize the pixel, or send
-measurement events. This is not a production-ready tracking integration.
+The shop was tested with CookieBar by Frontend Studios 3.1.2:
+
+- After granting the OpenAI marketing consent, `window.ConsentManager.getConsents().marketing.openaiMeasurementPixel` returned `true`.
+- After revoking the consent and saving, it returned `false`.
+
+**Stage 2: integration requirements documented; SDK runtime is not implemented.** The plugin still does **not** load the OpenAI SDK, initialize the pixel, or send measurement events. It is not production-ready for tracking.
+
+See [docs/STAGE-2-INTEGRATION.md](docs/STAGE-2-INTEGRATION.md) for the verified consent behavior, required runtime behavior, and acceptance tests.
 
 ## Consent details
 
-- Consent key: \`marketing.openaiMeasurementPixel\`
-- Group: \`marketing\`
-- Necessary: \`false\`
-- Opt-out by default: \`false\`
-- Pixel ID: not embedded at this stage.
-
-## Next validation steps
-
-1. Confirm the plugin builds in the target plugin set with Ceres 5.0.48 and IO
-   5.0.48. The plugin metadata follows the Ceres 5.0.48 manifest convention
-   and declares the IO dependency.
-2. Confirm CookieBar 3.1.2 displays the consent under Marketing.
-3. Confirm the active theme calls \`get_consent_scripts()\` with blocking enabled.
-4. Add the SDK through a consent-gated script using
-   \`data-cookie-consent="marketing.openaiMeasurementPixel"\`.
-5. Ensure the OpenAI SDK receives consent=false before initialization and
-   consent=true only after explicit approval; handle revocation and re-consent.
-6. Verify in a clean browser session that no SDK or measurement requests occur
-   before consent and initialization happens only once.
+- Consent key: `marketing.openaiMeasurementPixel`
+- Group: `marketing`
+- Necessary: `false`
+- Opt-out by default: `false`
+- Pixel ID: `5zPBSSGnskgfYVgeGzQAfV` (reserved for the integration stage; not embedded in runtime code)
 
 ## References
 
