@@ -15,7 +15,7 @@ This verifies consent-state propagation and the availability of a live Vuex subs
 
 File: `resources/js/openai-measurement-pixel.js`
 
-The first runtime prototype has been committed but is **not included in a shop template and has not been deployed or browser-tested**.
+The runtime prototype and its Twig import template have been committed. The ServiceProvider listens for `IO.Resources.Import` and calls `ResourceContainer::addScriptTemplate('OpenAiMeasurementPixel::content.OpenAiMeasurementPixel')`. The Twig template includes the runtime from the plugin resource path with `defer`. This wiring follows the official plentyShop cookbook example but has **not been deployed or browser-tested in the target shop**.
 
 It is designed to:
 
