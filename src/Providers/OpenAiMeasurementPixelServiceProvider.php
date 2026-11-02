@@ -2,15 +2,19 @@
 
 namespace OpenAiMeasurementPixel\Providers;
 
+use IO\Helper\ResourceContainer;
 use Plenty\Modules\Webshop\Consent\Contracts\ConsentRepositoryContract;
+use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ServiceProvider;
+use Plenty\Plugin\Templates\Twig;
 
 /**
- * Stage 1: register the OpenAI Measurement Pixel as an optional marketing
- * consent. This provider does not load or initialize the SDK.
+ * Registers the OpenAI Measurement Pixel consent and imports its runtime.
  */
 class OpenAiMeasurementPixelServiceProvider extends ServiceProvider
 {
+    const PRIORITY = 0;
+
     public function register()
     {
         /** @var ConsentRepositoryContract $consentRepository */
@@ -32,5 +36,15 @@ class OpenAiMeasurementPixelServiceProvider extends ServiceProvider
                 ];
             }
         );
+    }
+
+    /**
+     * Import the pixel runtime into plentyShop LTS through its resource event.
+     */
+    public function boot(Twig $twig, Dispatcher $eventDispatcher)
+    {
+        $eventDispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
+            $container->addScriptTemplate('OpenAiMeasurementPixel::content.OpenAiMeasurementPixel');
+        }, self::PRIORITY);
     }
 }
