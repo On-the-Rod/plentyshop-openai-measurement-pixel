@@ -11,7 +11,7 @@ The shop was tested with CookieBar by Frontend Studios 3.1.2:
 - After granting the OpenAI marketing consent, `window.ConsentManager.getConsents().marketing.openaiMeasurementPixel` returned `true`.
 - After revoking the consent and saving, it returned `false`.
 
-**Stage 2: integration requirements documented; SDK runtime is not implemented.** The plugin still does **not** load the OpenAI SDK, initialize the pixel, or send measurement events. It is not production-ready for tracking.
+**Stage 2: runtime prototype and script-import wiring committed; shop deployment and browser tests are pending.** The plugin now imports its runtime through the documented `IO.Resources.Import` / `ResourceContainer::addScriptTemplate()` mechanism. The runtime is not yet verified in the target shop and must not be treated as production-ready.
 
 See [docs/STAGE-2-INTEGRATION.md](docs/STAGE-2-INTEGRATION.md) for the verified consent behavior, required runtime behavior, and acceptance tests.
 
