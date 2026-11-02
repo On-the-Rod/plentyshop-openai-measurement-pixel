@@ -119,14 +119,16 @@
 
         store = window.ceresStore;
 
-        // Vuex module state is nested under rootState.consents.consents.
-        applyConsent(readConsent(store.state));
-
+        // Subscribe before the initial read so no consent change can fall
+        // into a gap between reading the current value and attaching listener.
         unsubscribe = store.subscribe(function (mutation, rootState) {
             // Read the actual state after every mutation. This avoids relying
             // on a CookieBar-specific callback or undocumented mutation payload.
             applyConsent(readConsent(rootState));
         });
+
+        // Vuex module state is nested under rootState.consents.consents.
+        applyConsent(readConsent(store.state));
 
         return true;
     }
